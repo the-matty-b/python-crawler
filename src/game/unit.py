@@ -13,3 +13,7 @@ class Unit(pygame.sprite.Sprite, ABC):
     @abstractmethod
     def take_damage(self, damage):
         pass
+    
+    @abstractmethod
+    def get_sprite(self):
+        pass
