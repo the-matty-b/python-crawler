@@ -10,6 +10,7 @@ class UserController():
         self.cursor = cursor
         self.room = room
         self.unit_info = unit_info
+        self.move_mode = False
 
     # NOTE: Pygame has issues with multiple for loops over events
     def handle_events(self):
