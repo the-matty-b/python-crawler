@@ -39,49 +39,25 @@ def main():
     cursor = Cursor(0,0)
     unit_info = UnitInfo()
     user_controller = UserController(cursor, room, unit_info)
+    
+    
+    # -----------------
+    # old pathfinding stuff still included
+    # TODO: Remove old 'pathfinding' library and replace with my own node.
     pathfinding_grid = Grid(matrix=TEST_GRID_WITH_OBSTACLES)
     
-    # pathfinding_grid.node()
-    
-    # player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, grid_x=1, grid_y=3)
-    # player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, node=pathfinding_grid[1][3])]
     print(pathfinding_grid.node(x=1, y=3).walkable)
     player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, node=pathfinding_grid.node(x=1, y=3))
     print(pathfinding_grid.node(x=1, y=3).walkable)
     
-    
-    # Create some enemies
-    # enemy_1 = Enemy("EnemyStrong", strength=9, defense=3, hp=20, speed=4, grid_x=6, grid_y=2)
-    # enemy_2 = Enemy("EnemyDefensive", strength=5, defense=7, hp=25, speed=3, grid_x=5, grid_y=3)
-    # enemy_3 = Enemy("EnemyBulky", strength=3, defense=5, hp=30, speed=2, grid_x=6, grid_y=4)
     enemy_1 = Enemy("EnemyStrong", strength=9, defense=3, hp=20, speed=4, node=pathfinding_grid.node(x=6, y=2))
     enemy_2 = Enemy("EnemyDefensive", strength=5, defense=7, hp=25, speed=3, node=pathfinding_grid.node(x=5, y=3))
     enemy_3 = Enemy("EnemyBulky", strength=3, defense=5, hp=30, speed=2, node=pathfinding_grid.node(x=6, y=4))
+    # -----------------
+    
     
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
-    # -----------------
-    # pathfinding stuff
-    
-    
-    player_node = pathfinding_grid.node(x=player.node.x, y=player.node.y+1)
-    enemy_2_node = pathfinding_grid.node(x=enemy_2.node.x, y=enemy_2.node.y+1)
-    
-    print("player_node: ", player_node)
-    print("enemy_2_node: ", enemy_2_node)
-    
-    print("Node Details:")
-    for row in pathfinding_grid.nodes:
-        for node in row:
-            print(f"Node ({node.x}:{node.y}) - Walkable: {node.walkable}")
-        
-    finder = AStarFinder()
-    
-    path, runs = finder.find_path(player_node, enemy_2_node, pathfinding_grid)
-    print("path: ", path)
-    print("runs: ", runs)
-    
-    # -----------------
     
     clock = pygame.time.Clock()
     
@@ -109,16 +85,6 @@ def main():
         enemy_3.draw(screen)
         cursor.draw(screen)
         unit_info.draw(screen)
-        
-        
-        for node in path:
-            x = node.x * GRID_NODE_SIZE
-            y = node.y * GRID_NODE_SIZE
-            rect = pygame.Rect(x, y, GRID_NODE_SIZE, GRID_NODE_SIZE)
-            pygame.draw.rect(screen, (0, 0, 255), rect)
-            pygame.draw.rect(screen, (255, 255, 255), rect, 1)
-            
-            # pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(node.x * GRID_NODE_SIZE, node.y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE))
         
         # Update the display
         pygame.display.flip()

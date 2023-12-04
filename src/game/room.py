@@ -22,11 +22,11 @@ class Room(pygame.sprite.Sprite):
 
     # def update(self):
     
-    def check_space_for_unit(self, transform: Transform2D):
+    def check_space_for_unit(self, node: Node):
         unit_to_return = None
         
         for unit in self.units:
-            if unit.transform == transform:
+            if unit.node == node:
                 unit_to_return = unit
                 break
         

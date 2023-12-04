@@ -37,6 +37,7 @@ class UserController():
         elif key == pygame.K_e:
             self.unit_info.update_unit_info(self.room.check_space_for_unit(self.cursor.transform))
             
+            
 
     def handle_keyup(self, key):
         if key == pygame.K_LEFT or key == pygame.K_RIGHT or key == pygame.K_UP or key == pygame.K_DOWN:
