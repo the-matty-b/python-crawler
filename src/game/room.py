@@ -5,20 +5,18 @@ from game.transform_2d import Transform2D
 from game.unit import Unit
 from utils.constants import WHITE, DARK_GRAY, ROOM_GRID_SIZE, GRID_NODE_SIZE
 
+# Make this the grid class?
 class Room(pygame.sprite.Sprite):
     
-    def __init__(self, obstacle_grid):
+    def __init__(self, grid):
         self.units : list[Unit] = []
-        self.obstacle_grid = obstacle_grid
-        
-        self.nodes = pygame.sprite.Group()
+        self.grid : list[list[Node]] = []
 
-        for y, row in enumerate(obstacle_grid):
+        for y, row in enumerate(grid):
+            row_nodes = []
             for x, value in enumerate(row):
-                node = pygame.sprite.Sprite()
-                node.rect = pygame.Rect(x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE)
-                node.walkable = (value == 1)
-                self.nodes.add(node)
+                row_nodes.append(Node(transform=Transform2D(x=x, y=y), walkable=(value == 1)))
+            self.grid.append(row_nodes)
 
     # def update(self):
     
@@ -40,11 +38,11 @@ class Room(pygame.sprite.Sprite):
             self.units.append(units)
 
     def draw(self, screen):
-        grid = [[0] * ROOM_GRID_SIZE for _ in range(ROOM_GRID_SIZE)]
+        
         # Draw the room on the screen
         for x in range(ROOM_GRID_SIZE):
             for y in range(ROOM_GRID_SIZE):
-                if self.obstacle_grid[y][x] == 1:
+                if self.grid[y][x].walkable:
                     pygame.draw.rect(screen, WHITE, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE), 1)
                 else:
                     pygame.draw.rect(screen, DARK_GRAY, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE))
