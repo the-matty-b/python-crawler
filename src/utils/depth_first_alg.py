@@ -1,6 +1,6 @@
 from utils.constants import ROOM_GRID_SIZE
 
-def explore_paths_dfs(grid, current_position, visited=None, current_path=None):
+def explore_paths_dfs(grid, current_position, current_distance_travelled, max_distance, visited=None, current_path=None):
     if visited is None:
         visited = set()
 

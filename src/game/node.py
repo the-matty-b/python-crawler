@@ -1,10 +1,11 @@
 from game.transform_2d import Transform2D
-from pathfinding.core.grid import GridNode
 
 # TODO: Remove GridNode dependency as we're not using the pathfinding library anymore
-class Node(GridNode):
+class Node():
     def __init__(self, transform : Transform2D, walkable):
-        super().__init__(x=transform.x, y = transform.y, walkable=walkable)
+        self.x =transform.x
+        self.y = transform.y
+        self.walkable=walkable
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y

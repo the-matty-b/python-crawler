@@ -3,7 +3,7 @@ import sys
 
 from game.cursor import Cursor
 from game.enemy import Enemy
-from game.grids import TEST_GRID_WITH_OBSTACLES
+from game.grid import TEST_GRID_WITH_OBSTACLES
 from game.node import Node
 from game.player import Player
 from game.room import Room
@@ -44,15 +44,13 @@ def main():
     # -----------------
     # old pathfinding stuff still included
     # TODO: Remove old 'pathfinding' library and replace with my own node.
-    pathfinding_grid = Grid(matrix=TEST_GRID_WITH_OBSTACLES)
+    pathfinding_grid = room.grid
     
-    print(pathfinding_grid.node(x=1, y=3).walkable)
-    player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, node=pathfinding_grid.node(x=1, y=3))
-    print(pathfinding_grid.node(x=1, y=3).walkable)
+    player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, node=pathfinding_grid.get_node(x=1, y=3))
     
-    enemy_1 = Enemy("EnemyStrong", strength=9, defense=3, hp=20, speed=4, node=pathfinding_grid.node(x=6, y=2))
-    enemy_2 = Enemy("EnemyDefensive", strength=5, defense=7, hp=25, speed=3, node=pathfinding_grid.node(x=5, y=3))
-    enemy_3 = Enemy("EnemyBulky", strength=3, defense=5, hp=30, speed=2, node=pathfinding_grid.node(x=6, y=4))
+    enemy_1 = Enemy("EnemyStrong", strength=9, defense=3, hp=20, speed=4, node=pathfinding_grid.get_node(x=6, y=2))
+    enemy_2 = Enemy("EnemyDefensive", strength=5, defense=7, hp=25, speed=3, node=pathfinding_grid.get_node(x=5, y=3))
+    enemy_3 = Enemy("EnemyBulky", strength=3, defense=5, hp=30, speed=2, node=pathfinding_grid.get_node(x=6, y=4))
     # -----------------
     
     

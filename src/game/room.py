@@ -1,5 +1,6 @@
 import pygame
 from typing import Union, List
+from game.grid import Grid
 from game.node import Node
 from game.transform_2d import Transform2D
 from game.unit import Unit
@@ -10,13 +11,9 @@ class Room(pygame.sprite.Sprite):
     
     def __init__(self, grid):
         self.units : list[Unit] = []
-        self.grid : list[list[Node]] = []
-
-        for y, row in enumerate(grid):
-            row_nodes = []
-            for x, value in enumerate(row):
-                row_nodes.append(Node(transform=Transform2D(x=x, y=y), walkable=(value == 1)))
-            self.grid.append(row_nodes)
+        self.grid = Grid(grid)
+        
+        print()
 
     # def update(self):
     
@@ -40,9 +37,10 @@ class Room(pygame.sprite.Sprite):
     def draw(self, screen):
         
         # Draw the room on the screen
-        for x in range(ROOM_GRID_SIZE):
-            for y in range(ROOM_GRID_SIZE):
-                if self.grid[y][x].walkable:
+        for y in range(ROOM_GRID_SIZE):
+            # print()
+            for x in range(ROOM_GRID_SIZE):
+                if self.grid.get_node(x, y).walkable:
                     pygame.draw.rect(screen, WHITE, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE), 1)
                 else:
                     pygame.draw.rect(screen, DARK_GRAY, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE))

@@ -6,6 +6,9 @@ class Transform2D:
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
+    
+    def __add__(self, other):
+        return Transform2D(self.x + other.x, self.y + other.y)
 
     def __hash__(self):
         return hash((self.x, self.y))
