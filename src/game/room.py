@@ -13,8 +13,6 @@ class Room(pygame.sprite.Sprite):
         self.units : list[Unit] = []
         self.grid = grid
         
-    # def update(self):
-    
     def check_space_for_unit(self, node: Node):
         unit_to_return = None
         
