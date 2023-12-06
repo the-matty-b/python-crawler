@@ -9,12 +9,10 @@ from utils.constants import WHITE, DARK_GRAY, ROOM_GRID_SIZE, GRID_NODE_SIZE
 # Make this the grid class?
 class Room(pygame.sprite.Sprite):
     
-    def __init__(self, grid):
+    def __init__(self, grid: Grid):
         self.units : list[Unit] = []
-        self.grid = Grid(grid)
+        self.grid = grid
         
-        print()
-
     # def update(self):
     
     def check_space_for_unit(self, node: Node):
@@ -38,7 +36,6 @@ class Room(pygame.sprite.Sprite):
         
         # Draw the room on the screen
         for y in range(ROOM_GRID_SIZE):
-            # print()
             for x in range(ROOM_GRID_SIZE):
                 if self.grid.get_node(x, y).walkable:
                     pygame.draw.rect(screen, WHITE, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE), 1)

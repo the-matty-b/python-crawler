@@ -3,19 +3,14 @@ import sys
 
 from game.cursor import Cursor
 from game.enemy import Enemy
-from game.grid import TEST_GRID_WITH_OBSTACLES
-from game.node import Node
+from game.grid import Grid, TEST_GRID_WITH_OBSTACLES
 from game.player import Player
 from game.room import Room
-from game.text import Text
-from game.transform_2d import Transform2D
 from game.unit_info import UnitInfo
 from game.user_controller import UserController
 
-from pathfinding.core.grid import Grid
-from pathfinding.finder.a_star import AStarFinder
-
-from utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, GRID_NODE_SIZE
+from utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
+from utils.depth_first_alg import explore_paths_dfs
 from utils.hot_reload import HotReloadHandler
 
 from watchdog.observers import Observer
@@ -34,8 +29,9 @@ def main():
     # handler = HotReloadHandler(observer)
     # observer.schedule(handler, path="src", recursive=True)
     # observer.start()
-
-    room = Room(TEST_GRID_WITH_OBSTACLES)
+    
+    grid = Grid(TEST_GRID_WITH_OBSTACLES)
+    room = Room(grid)
     cursor = Cursor(0,0)
     unit_info = UnitInfo()
     user_controller = UserController(cursor, room, unit_info)
@@ -56,6 +52,12 @@ def main():
     
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
+    
+    current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, 2)
+    
+    print(visited)
+    
+    grid.set_highlighted_nodes(visited)
     
     clock = pygame.time.Clock()
     
@@ -83,6 +85,9 @@ def main():
         enemy_3.draw(screen)
         cursor.draw(screen)
         unit_info.draw(screen)
+        
+        grid.draw(screen)
+        
         
         # Update the display
         pygame.display.flip()
