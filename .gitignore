@@ -1,5 +1,6 @@
 venv/
 
+# Ignore pycache stuff
 *.pyo
 *.pyc
 __pycache__/
