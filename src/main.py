@@ -1,9 +1,11 @@
 import pygame
 import sys
 
+
 from game.cursor import Cursor
 from game.enemy import Enemy
 from game.grid import Grid, TEST_GRID_WITH_OBSTACLES
+from game.grid_highlight import HighlightType
 from game.player import Player
 from game.room import Room
 from game.unit_info import UnitInfo
@@ -53,11 +55,11 @@ def main():
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
     
-    current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, 2)
+    current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, player.speed)
     
     print(visited)
     
-    grid.set_highlighted_nodes(visited)
+    grid.set_highlighted_nodes(visited, HighlightType.BLUE)
     
     clock = pygame.time.Clock()
     
@@ -79,6 +81,7 @@ def main():
 
         # Draw game elements
         room.draw(screen)
+        grid.draw(screen)
         player.draw(screen)
         enemy_1.draw(screen)
         enemy_2.draw(screen)
@@ -86,7 +89,6 @@ def main():
         cursor.draw(screen)
         unit_info.draw(screen)
         
-        grid.draw(screen)
         
         
         # Update the display
