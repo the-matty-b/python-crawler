@@ -47,8 +47,6 @@ class Grid():
         self.highlighted_nodes.clear()
         self.highlighted_nodes = nodes
         
-        print("length of highlighted nodes: ",self.highlighted_nodes.__len__())
-        
         for node in nodes:
             node.set_highlight(highlight)
     

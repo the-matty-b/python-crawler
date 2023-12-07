@@ -57,8 +57,6 @@ def main():
     
     current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, player.speed)
     
-    print(visited)
-    
     grid.set_highlighted_nodes(visited, HighlightType.BLUE)
     
     clock = pygame.time.Clock()
@@ -88,7 +86,6 @@ def main():
         enemy_3.draw(screen)
         cursor.draw(screen)
         unit_info.draw(screen)
-        
         
         
         # Update the display

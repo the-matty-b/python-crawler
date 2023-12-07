@@ -16,8 +16,6 @@ def explore_paths_dfs(grid: Grid, current_node: Node, current_distance_travelled
     visited.add(current_node)
     current_path.append((current_node.x, current_node.y))
     
-    print(f"current_node: ({current_node.x}, {current_node.y}) - walkable is {current_node.walkable}, distance_travelled: {current_distance_travelled}")
-
     # Define the possible moves (up, down, left, right)
     moves = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 
