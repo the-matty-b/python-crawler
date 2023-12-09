@@ -7,7 +7,6 @@ from utils.position_helpers import calculatePositionForOneDirection
 MAX_CURSOR_ALPHA = 201
 MIN_CURSOR_ALPHA = 111
 
-
 class Cursor(pygame.sprite.Sprite):
     def __init__(self, grid_x, grid_y):
         self.current_alpha = MAX_CURSOR_ALPHA
@@ -34,7 +33,7 @@ class Cursor(pygame.sprite.Sprite):
             self.transform.y = new_y
             self.rect.x = calculatePositionForOneDirection(new_x)
             self.rect.y = calculatePositionForOneDirection(new_y)
-
+        
     def update(self):
         self.update_alpha()
     

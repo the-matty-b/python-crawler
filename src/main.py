@@ -12,7 +12,6 @@ from game.unit_info import UnitInfo
 from game.user_controller import UserController
 
 from utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
-from utils.depth_first_alg import explore_paths_dfs
 from utils.hot_reload import HotReloadHandler
 
 from watchdog.observers import Observer
@@ -55,9 +54,9 @@ def main():
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
     
-    current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, player.speed)
+    # current_path, visited = explore_paths_dfs(pathfinding_grid, player.node, 0, player.speed)
     
-    grid.set_highlighted_nodes(visited, HighlightType.BLUE)
+    # grid.set_highlighted_nodes(visited, HighlightType.BLUE)
     
     clock = pygame.time.Clock()
     
