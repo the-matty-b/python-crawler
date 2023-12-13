@@ -8,6 +8,7 @@ from game.grid import Grid, TEST_GRID_WITH_OBSTACLES
 from game.grid_highlight import HighlightType
 from game.player import Player
 from game.room import Room
+from game.unit_action_menu import UnitActionMenu
 from game.unit_info import UnitInfo
 from game.user_controller import UserController
 
@@ -35,7 +36,8 @@ def main():
     room = Room(grid)
     cursor = Cursor(0,0)
     unit_info = UnitInfo()
-    user_controller = UserController(cursor, room, unit_info)
+    unit_action_menu = UnitActionMenu()
+    user_controller = UserController(cursor, room, unit_info, unit_action_menu)
     
     
     # -----------------
@@ -85,6 +87,7 @@ def main():
         enemy_3.draw(screen)
         cursor.draw(screen)
         unit_info.draw(screen)
+        unit_action_menu.draw(screen)
         
         
         # Update the display

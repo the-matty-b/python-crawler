@@ -46,7 +46,10 @@ class Grid():
     
     def set_highlighted_nodes(self, unit: Unit, highlight: HighlightType):
         self.clear_highlighted_nodes()
-        explored, visited = explore_paths_dfs(self, unit.node, 0, unit.speed)
+        # explored, visited = explore_paths_dfs(self, unit.node, 0, unit.speed)
+        attack_range, visited = explore_paths_dfs(self, unit.node, 0, unit.speed)
+        
+        print(visited.__len__())
         
         self.highlighted_nodes = visited
         
@@ -83,7 +86,7 @@ def explore_paths_dfs(grid: Grid, current_node: Node, current_distance_travelled
         if 0 <= current_node.x + move[0] < ROOM_GRID_SIZE and 0 <= current_node.y + move[1] < ROOM_GRID_SIZE:
             new_node = grid.get_node(current_node.x + move[0], current_node.y + move[1])
             
-            if new_node not in visited and new_node.walkable:
+            if new_node.walkable:
                 explore_paths_dfs(grid, new_node, current_distance_travelled + 1, max_distance, visited, current_path)
 
     return current_path, visited

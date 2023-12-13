@@ -1,14 +1,16 @@
 import pygame
 from game.unit import Unit
-from utils.constants import UNIT_INFO_BOX_HEIGHT, UNIT_INFO_BOX_WIDTH, BLUE, BLACK
+from utils.constants import UNIT_INFO_BOX_HEIGHT, UNIT_INFO_BOX_WIDTH, WHITE, BLACK
 from game.text import Text
 
 class UnitInfo(pygame.sprite.Sprite):
     def __init__(self):
-        self.image = pygame.Surface((UNIT_INFO_BOX_WIDTH, UNIT_INFO_BOX_HEIGHT))
+        self.image = pygame.Surface((UNIT_INFO_BOX_WIDTH, UNIT_INFO_BOX_HEIGHT // 2))
         self.image.fill(BLACK)
         
-        pygame.draw.rect(self.image, BLUE, (0, 0, UNIT_INFO_BOX_WIDTH, UNIT_INFO_BOX_HEIGHT), 5)
+        self.title = Text("UNIT INFO", size=30)
+        
+        pygame.draw.rect(self.image, WHITE, (0, 0, UNIT_INFO_BOX_WIDTH, UNIT_INFO_BOX_HEIGHT // 2), 5)
         
         self.rect = self.image.get_rect()
         self.rect.x = UNIT_INFO_BOX_HEIGHT
@@ -45,6 +47,7 @@ class UnitInfo(pygame.sprite.Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+        self.title.render(screen, self.rect.x + 10, self.rect.y + 10)
         
         for i, text_instance in enumerate(self.text_instances):
-            text_instance.render(screen, self.rect.x + 10, self.rect.y + 10 + (i * 25))
+            text_instance.render(screen, self.rect.x + 10, self.rect.y + 50 + (i * 28))
