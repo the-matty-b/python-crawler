@@ -19,6 +19,7 @@ class UserController():
         # might be able to remove highlight mode
         self.highlight_mode = False
         self.control_mode = UserControlMode.GRID_CURSOR
+        self.previous_player_node = None
 
     # NOTE: Pygame has issues with multiple for loops over events
     def handle_events(self):
@@ -58,7 +59,9 @@ class UserController():
             self.action_menu.move(1)
         elif key == pygame.K_q:
             self.action_menu.clear_menu()
-            self.control_mode = UserControlMode.GRID_CURSOR
+            self.control_mode = UserControlMode.MOVING_ALLY
+            self.unit_info.unit_ref.move(self.previous_player_node)
+            self.previous_player_node = None
         elif key == pygame.K_e:
             self.handle_unit_action(self.action_menu.select_item())
     
@@ -83,15 +86,18 @@ class UserController():
         unit = self.unit_info.unit_ref
         if key == pygame.K_e:
             for node in self.room.grid.highlighted_nodes:
-                print(node.x, node.y)
-                print(self.cursor.transform)
                 if Transform2D(node.x, node.y) == self.cursor.transform:
                     print("we got here")
+                    self.previous_player_node = unit.node
+                    print(self.previous_player_node)
                     unit.move(node)
                     self.action_menu.determine_actions(unit)
-                    self.room.grid.clear_highlighted_nodes()
                     self.control_mode = UserControlMode.ACTION_MENU
                     return
+            self.room.grid.clear_highlighted_nodes()
+            self.control_mode = UserControlMode.GRID_CURSOR
+        
+        elif key == pygame.K_q:
             self.room.grid.clear_highlighted_nodes()
             self.control_mode = UserControlMode.GRID_CURSOR
             
