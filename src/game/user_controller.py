@@ -64,6 +64,7 @@ class UserController():
             self.previous_player_node = None
         elif key == pygame.K_e:
             self.handle_unit_action(self.action_menu.select_item())
+            self.room.grid.clear_highlighted_nodes()
     
     def handle_unit_action(self, action: UnitAction):
         if action == UnitAction.WAIT:
