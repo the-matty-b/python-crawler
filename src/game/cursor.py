@@ -10,7 +10,8 @@ MIN_CURSOR_ALPHA = 111
 class Cursor(pygame.sprite.Sprite):
     def __init__(self, grid_x, grid_y):
         self.current_alpha = MAX_CURSOR_ALPHA
-
+        self.alpha_increasing = False
+        
         # Create a player image (replace "player_image.png" with your actual image file)
         self.image = pygame.Surface((PLAYER_SPRITE_SIZE, PLAYER_SPRITE_SIZE))
         self.image.fill(WHITE)
@@ -21,7 +22,7 @@ class Cursor(pygame.sprite.Sprite):
         self.transform = Transform2D(grid_x, grid_y)
         self.rect.x = calculatePositionForOneDirection(grid_x)
         self.rect.y = calculatePositionForOneDirection(grid_y)
-        self.alpha_increasing = False
+
         
     def move(self, delta_x, delta_y):
         # Update grid position based on movement

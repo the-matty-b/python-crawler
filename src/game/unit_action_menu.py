@@ -13,9 +13,11 @@ class UnitAction(Enum):
     ATTACK = "Attack"
     
     # TODO: define unit type elsewhere in src/game/unit.py
-    def get_player_actions(unit_type) -> List:
-        if unit_type == "Player":
+    def get_player_actions(can_attack) -> List:
+        if (can_attack):
             return [UnitAction.WAIT, UnitAction.ATTACK]
+        else:
+            return [UnitAction.WAIT]
             
     
 
@@ -40,16 +42,21 @@ class UnitActionMenu(pygame.sprite.Sprite):
         
         self.unit_ref = None
         self.cursor_is_showing = False
+        self.can_attack = False
     
     def determine_actions(self, unit: Unit):
+        self.actions.clear()
         self.cursor_is_showing = True
         
         if unit.name == "Player":
-            for action in UnitAction:
+            for action in UnitAction.get_player_actions(self.can_attack):
                 action_text = Text(action.value)
                 self.action_text.append(action_text)
                 self.actions.append(action)
-            
+        
+    def set_can_attack(self, can_attack: bool):
+        self.can_attack = can_attack
+
     def clear_menu(self):
         self.cursor_is_showing = False
         for action in self.action_text:
@@ -58,6 +65,9 @@ class UnitActionMenu(pygame.sprite.Sprite):
         self.action_text.clear()
     
     def select_item(self) -> UnitAction:
+        for action in self.actions:
+            print(action)
+            
         return self.actions[self.menu_cursor_index]
     
     def move(self, direction):
