@@ -72,26 +72,16 @@ class Grid():
         explored, attackable = explore_attack_range_dfs(self, unit.node, unit.unit_type, 0, 1)
         
         self.attackable_nodes = attackable
-        print("printing attackables list")
-        print(self.attackable_nodes)
     
     def clear_attackable_nodes(self):
         self.attackable_nodes.clear()
     
-    def update(self):
-        for node in self.highlighted_nodes:
-            node.update()
-        for node in self.attackable_nodes:
-            node.update()
-    
     def draw(self, screen):
         for node in self.highlighted_nodes:
             node.draw(screen)
-            # node.draw()
             
         for node in self.attackable_nodes:
             node.draw(screen)
-            # node.draw()
     
 def explore_attack_range_dfs(grid: Grid, current_node: Node, unit_type: UnitType, current_distance_travelled, range, attackable=None, current_path=None):
     if current_distance_travelled > range:

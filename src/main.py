@@ -69,7 +69,6 @@ def main():
         enemy_3.update()
         cursor.update()
         room.update()
-        grid.update()
         unit_info.update()
 
         # Draw the background

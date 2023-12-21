@@ -101,12 +101,11 @@ class UserController():
                 if Transform2D(node.x, node.y) == self.cursor.transform:
                     enemy = node.unit_ref
                     unit.attack(enemy)
-                    # self.action_menu.clear_menu()
                     self.change_control_mode(UserControlMode.GRID_CURSOR)
+                    self.room.grid.clear_attackable_nodes()
+                    self.room.grid.clear_highlighted_nodes()
                     return
             
-            # self.action_menu.clear_menu()
-            # self.room.grid.clear_highlighted_nodes()
             self.room.grid.clear_attackable_nodes()
             self.room.grid.find_attackable_nodes(self.unit_info.unit_ref)
             if self.room.grid.attackable_nodes.__len__() > 0:
@@ -116,10 +115,7 @@ class UserController():
             self.change_control_mode(UserControlMode.ACTION_MENU)
         
         elif key == pygame.K_q:
-            self.room.grid.clear_highlighted_nodes()
-            self.room.grid.find_attackable_nodes(self.unit_info.unit_ref)
-            if self.room.grid.attackable_nodes.__len__() > 0:
-                self.action_menu.can_attack = True
+            self.room.grid.clear_attackable_nodes()
             self.action_menu.determine_actions(unit)
             self.change_control_mode(UserControlMode.ACTION_MENU)
         

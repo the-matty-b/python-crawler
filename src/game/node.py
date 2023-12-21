@@ -28,10 +28,6 @@ class Node():
         
         self.unit_ref = None
         
-    def update(self):
-        if self.highlight_color:
-            self.update_alpha()
-    
     def unit_moved_to_node(self, unit):
         from game.unit import Unit
         self.unit_ref : Unit = unit
@@ -49,16 +45,7 @@ class Node():
         self.highlight_color = convert_highlight_to_color(highlight)
         self.image.fill(self.highlight_color)
     
-    def update_alpha(self):
-        self.current_alpha = self.current_alpha + 1 if self.alpha_increasing else self.current_alpha - 1
-        if self.current_alpha <= MIN_NODE_ALPHA:
-            self.alpha_increasing = True
-        elif self.current_alpha >= MAX_NODE_ALPHA:
-            self.current_alpha = MAX_NODE_ALPHA
-            self.alpha_increasing = False
-        self.image.set_alpha(self.current_alpha)
         
     def draw(self, screen):
         if self.highlight_color:
             screen.blit(self.image, self.rect)
-        
