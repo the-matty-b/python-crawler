@@ -16,8 +16,6 @@ class Node():
         
         self.image = pygame.Surface((PLAYER_SPRITE_SIZE, PLAYER_SPRITE_SIZE))
         self.rect = self.image.get_rect()
-        # self.rect.width -= 2
-        # self.rect.height -= 2
         self.image.set_alpha(MAX_NODE_ALPHA)
         
         self.x = transform.x
@@ -30,8 +28,6 @@ class Node():
         
         self.unit_ref = None
         
-        # pygame.draw.rect()
-    
     def update(self):
         if self.highlight_color:
             self.update_alpha()
@@ -63,11 +59,6 @@ class Node():
         self.image.set_alpha(self.current_alpha)
         
     def draw(self, screen):
-        # screen.blit(self.image, self.rect)
         if self.highlight_color:
-            color = (*self.highlight_color, self.current_alpha)
-            print(color)
-            # pygame.draw.rect(screen, color, self.rect, 4)
-            pygame.draw.rect(screen, self.highlight_color, self.rect, 4)
-        # pygame.draw.rect(screen, WHITE, (x * GRID_NODE_SIZE, y * GRID_NODE_SIZE, GRID_NODE_SIZE, GRID_NODE_SIZE), 1)
+            screen.blit(self.image, self.rect)
         
