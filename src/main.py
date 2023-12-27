@@ -15,6 +15,7 @@ from game.user_controller import UserController
 
 from utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
 from utils.hot_reload import HotReloadHandler
+from utils.console import Console
 
 from watchdog.observers import Observer
 
@@ -26,6 +27,8 @@ def main():
     
     # FTK OT FE
     pygame.display.set_caption("Crawler")
+    
+    console = Console()
     
     # Hot Reload Observer
     # observer = Observer()
@@ -56,6 +59,16 @@ def main():
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
     
+    console.log("test1")
+    console.log("test2")
+    console.log("test3")
+    console.log("test4")
+    console.log("test5")
+    console.log("test6")
+    console.log("test7")
+    console.log("test8")
+    
+    
     clock = pygame.time.Clock()
     
     while True:
@@ -75,6 +88,7 @@ def main():
         screen.fill(BLACK)
 
         # Draw game elements
+        console.draw(screen)
         room.draw(screen)
         enemy_1.draw(screen)
         enemy_2.draw(screen)
