@@ -4,20 +4,26 @@ from utils.constants import UNIT_INFO_BOX_HEIGHT, UNIT_INFO_BOX_WIDTH, RED, BLAC
 from game.text import Text
 
 class Console(pygame.sprite.Sprite):
-    def __init__(self):
-        self.height = SCREEN_HEIGHT - UNIT_INFO_BOX_HEIGHT
-        self.image = pygame.Surface((SCREEN_WIDTH, self.height))
-        self.image.fill(BLACK)
-        
-        self.title = Text("CONSOLE", size=30)
-        
-        self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = UNIT_INFO_BOX_HEIGHT
-        
-        self.text_instances : list[Text] = []
-        self.logs : list[str] = []
-        
+    _instance = None
+    
+    
+    def __new__(self):
+        if not self._instance:
+            self._instance = super(Console, self).__new__(self)
+            self.height = SCREEN_HEIGHT - UNIT_INFO_BOX_HEIGHT
+            self.image = pygame.Surface((SCREEN_WIDTH, self.height))
+            self.image.fill(BLACK)
+            
+            self.title = Text("CONSOLE", size=30)
+            
+            self.rect = self.image.get_rect()
+            self.rect.x = 0
+            self.rect.y = UNIT_INFO_BOX_HEIGHT
+            
+            self.text_instances : list[Text] = []
+            self.logs : list[str] = []
+        return self._instance
+    
     def log(self, text: str):
         
         for text_instance in self.text_instances:
