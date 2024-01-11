@@ -6,6 +6,7 @@ from game.cursor import Cursor
 from game.enemy import Enemy
 from game.grid import Grid, TEST_GRID_WITH_OBSTACLES
 from game.grid_highlight import HighlightType
+from game.gui_manager import GUIManager
 from game.player import Player
 from game.room import Room
 from game.unit import UnitType
@@ -39,14 +40,15 @@ def main():
     grid = Grid(TEST_GRID_WITH_OBSTACLES)
     room = Room(grid)
     cursor = Cursor(0,0)
-    unit_info = UnitInfo()
-    unit_action_menu = UnitActionMenu()
-    user_controller = UserController(cursor, room, unit_info, unit_action_menu)
     
+    # unit_info = UnitInfo()
+    gui_manager = GUIManager()
+    unit_action_menu = UnitActionMenu()
+    
+    
+    user_controller = UserController(cursor, room, gui_manager.unit_info, unit_action_menu)
     
     # -----------------
-    # old pathfinding stuff still included
-    # TODO: Remove old 'pathfinding' library and replace with my own node.
     pathfinding_grid = room.grid
     
     player = Player(name="Player", strength=14, defense=4, hp=25, speed=4, node=pathfinding_grid.get_node(x=1, y=3), unit_type=UnitType.ALLY)
@@ -58,7 +60,6 @@ def main():
     
     room.add_units_to_list([player, enemy_1, enemy_2, enemy_3])
     
-    
     console.log("test1")
     console.log("test2")
     console.log("test3")
@@ -67,6 +68,7 @@ def main():
     console.log("test6")
     console.log("test7")
     console.log("test8")
+    
     
     
     clock = pygame.time.Clock()
@@ -82,7 +84,7 @@ def main():
         enemy_3.update()
         cursor.update()
         room.update()
-        unit_info.update()
+        # unit_info.update()
 
         # Draw the background
         screen.fill(BLACK)
@@ -96,7 +98,8 @@ def main():
         player.draw(screen)
         grid.draw(screen)
         cursor.draw(screen)
-        unit_info.draw(screen)
+        # unit_info.draw(screen)
+        gui_manager.draw(screen)
         unit_action_menu.draw(screen)
         
         

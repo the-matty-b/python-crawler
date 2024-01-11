@@ -1,6 +1,6 @@
 # Screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
 
 # Colors (RGB format)
 WHITE = (255, 255, 255)

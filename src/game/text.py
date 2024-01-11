@@ -2,7 +2,7 @@ import pygame
 from utils.constants import WHITE
 
 DEFAULT_FONT_PATH = pygame.font.match_font("Arial")
-DEFAULT_FONT_SIZE = 24
+DEFAULT_FONT_SIZE = 18
 
 class Text:
     def __init__(self, text, size=DEFAULT_FONT_SIZE, font_path=DEFAULT_FONT_PATH, color=WHITE):
